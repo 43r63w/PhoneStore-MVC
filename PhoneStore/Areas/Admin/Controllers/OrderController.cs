@@ -156,7 +156,7 @@ namespace PhoneStore.Areas.Admin.Controllers
             }
             else
             {
-                orderHeadersLists = await _unitOfWork.OrderHeader.GetAllAsync(u => u.ApplicationUserId == userId);
+                orderHeadersLists = await _unitOfWork.OrderHeader.GetAllAsync(u => u.ApplicationUserId == userId, IncludedProperties:"ApplicationUser");
             }
 
             return Json(new { data = orderHeadersLists });

@@ -13,7 +13,7 @@
                         <i class="fas fa-shopping-cart"></i> &nbsp; Order Summary
                     </div>
                     <div class="col-12 col-md-4 offset-md-2 text-right">
-                        <a class="btn btn-outline-info form-control btn-sm">Back to Orders</a>
+                        <a  asp-action="Index"  class="btn btn-outline-info form-control btn-sm">До замовлень</a>
                     </div>
                 </div>
             </div>
@@ -113,8 +113,9 @@
                                     <input type="text" asp-for="OrderHeader.PaymentStatus" readonly class="form-control" />
                                 </div>
                             </div>
-                            @if (Model.OrderHeader.OrderStatus == SD.OrderDelivered || Model.OrderHeader.OrderStatus == SD.OrderBeingShipped)
+                            @if (Model.OrderHeader.OrderStatus == SD.OrderDelivered || Model.OrderHeader.OrderStatus == SD.OrderCancelled)
                             {
+                                
                             }
                             else
                             {
@@ -124,10 +125,16 @@
                         </div>
                         <div class="col-12 col-lg-5 offset-lg-1">
                             <h4 class="d-flex justify-content-between align-items-center mb-3">
-                                <span class="text-primary">Order Summary</span>
+                                <span class="text-primary">Підсумок замовлення</span>
                             </h4>
-                            <label class="btn btn-outline-primary form-control my-2">Order Status - @Model.OrderHeader.OrderStatus</label>
-
+                            @if (Model.OrderHeader.OrderStatus == SD.OrderCancelled)
+                            {
+                                <label class="btn btn-outline-danger form-control my-2">Статус замовлення - @Model.OrderHeader.OrderStatus</label>
+                            }
+                            else
+                            {
+                                <label class="btn btn-outline-primary form-control my-2">Статус замовлення - @Model.OrderHeader.OrderStatus</label>
+                            }
                             <ul class="list-group mb-3">
 
                                 <li class="list-group-item d-flex justify-content-between p-2">

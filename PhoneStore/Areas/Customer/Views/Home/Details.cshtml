@@ -79,13 +79,13 @@
                             {
                                 <h6 class="text-dark text-opacity-50  pb-2">
                                     <span class="text-decoration-line-through">
-                                        @Model.Product.Price.ToString("C")
+                                        @Model.Product.Price ₴
                                     </span>
                                 </h6>
                                 <h6 class="text-dark text-opacity-50  pb-2">
                                     Ціна:
                                     <span class="text-decoration text-danger" style="font-size:14px">
-                                        @Model.Product.PriceForSale.ToString("C")
+                                        @Model.Product.PriceForSale ₴
                                         <span class="bg-black text-white top-1 start-100 translate-middle-y badge rounded-start ">Знижка</span>
                                     </span>
                                 </h6>
@@ -95,7 +95,7 @@
                                 <h6 class="text-dark text-opacity-50  pb-1 ">
                                     
                                     <span class="text-decoration" style="font-size:18px">
-                                        @Model.Product.Price.ToString("C")
+                                        @Model.Product.Price ₴
                                     </span>
                                 </h6>
                             }
@@ -113,7 +113,6 @@
                                     <input type="number" asp-for="Count" class="form-control text-end"
                                            aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
                                            min="1" />
-
                                 </div>
                             </div>
                         </div>
