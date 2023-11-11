@@ -1,0 +1,46 @@
+﻿@model Category
+
+
+<div class="card shadow border-0 mt-4">
+    <div class="card-header bg-black bg-gradient ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white  py-2">@(Model.Id == 0 ? "Створити" : "Оновити") категорію</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body pt-4">
+        <form method="post">
+            <input asp-for="Id" hidden />
+            <div class="form-floating py-2 col-12">
+                <label asp-for="Name" class="form-floating ms-2 mb-5"></label>
+                <input asp-for="Name" class="form-control border-0 shadow" />
+                <span class="text-danger" asp-validation-for="Name"></span>
+            </div>
+
+            <div class="row pt-2">
+                @if (Model.Id == 0)
+                {
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-primary form-control">Створити</button>
+                    </div>
+                }
+                else
+                {
+                    <div class="col-6 col-md-3">
+                        <button type="submit" class="btn btn-primary form-control">Оновити</button>
+                    </div>
+                }
+                <div class="col-6 col-md-3">
+                    <a asp-controller="Category" asp-action="Index" class="btn btn-outline-primary border  form-control">
+                       До списку
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

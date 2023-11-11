@@ -1,0 +1,136 @@
+﻿@model ShoppingCart
+
+
+
+<form method="post">
+    <input asp-for="ProductId" hidden />
+    <div class="card shadow border-0 mt-4">
+        <div class="card-header bg-secondary bg-gradient  text-light py-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h3 class="text-white text-uppercase">@Model.Product.Name</h3>
+                    <p class="text-white fw-semibold mb-0"><i class="bi bi-badge-tm"></i> @Model.Product.Model </p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="py-3">
+                <div class="row">
+                    <div class="col-6 col-md-2 offset-lg-1 pb-1">
+                        <a asp-action="Index" class="btn btn-outline-secondary bg-gradient mb-5 fw-semibold btn-sm text-uppercase">
+                            <small>До списку</small>
+                        </a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-lg-3 offset-lg-1 text-center mb-3">
+                        @if (Model.Product.ProductImages != null && Model.Product.ProductImages.Count > 0)
+                        {
+                            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                    @foreach (var imageWithIndex in
+                                   Model.Product.ProductImages
+                                   .Select((image, index) => new { Image = image, Index = index }))
+                                    {
+                                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="@imageWithIndex.Index"
+                                                class="@(imageWithIndex.Index==0?"active":"")" aria-current="true"  aria-label="Slide 1"></button>
+                                    }
+
+
+                                </div>
+                                <div class="carousel-inner">
+                                    @foreach (var imageWithIndex in
+                                   Model.Product.ProductImages
+                                   .Select((image, index) => new { Image = image, Index = index }))
+                                    {
+                                        <div class="@(imageWithIndex.Index==0?"carousel-item active":"carousel-item")">
+                                            <img src="@imageWithIndex.Image.ImageUrl" class="d-block w-100 " alt="...">
+                                        </div>
+                                    }
+                                </div>
+                                <button class="carousel-control-prev carousel-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" data-bs-theme="dark" >
+                                    <span class="carousel-control-prev-icon"  aria-hidden="true"></span>
+                                    <span class="visually-hidden text-black">Previous</span>
+                                </button>
+                                <button class="carousel-control-next carousel-dark" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next" data-bs-theme="dark">
+                                    <span class="carousel-control-next-icon"  aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </button>
+                            </div>
+
+                        }
+                    </div>
+
+                    <div class="col-12 col-lg-6 offset-lg-1 pb-5">
+
+                        <div class="col-12 col-md-6 pb-1 m-1">
+                            <span class="badge text-white bg-warning">@Model.Product.Category.Name</span>
+                        </div>
+                        <div class="row ps-2  pb-2">
+                            <ul class="list-group list-group-flush">                 
+                                <li class="list-group-item"><strong>Процессор:</strong> @Model.Product.Proccessor</li>
+                                <li class="list-group-item"><strong>ОЗУ:</strong> @Model.Product.Memory</li>
+                                <li class="list-group-item"><strong>Камера:</strong> @Model.Product.Camera</li>
+                                <li class="list-group-item"><strong>Камера:</strong></li>
+                            </ul>
+                        </div>
+                        <div class="row ps-2">
+                            @if (Model.Product.IsSale == true)
+                            {
+                                <h6 class="text-dark text-opacity-50  pb-2">
+                                    <span class="text-decoration-line-through">
+                                        @Model.Product.Price.ToString("C")
+                                    </span>
+                                </h6>
+                                <h6 class="text-dark text-opacity-50  pb-2">
+                                    Ціна:
+                                    <span class="text-decoration text-danger" style="font-size:14px">
+                                        @Model.Product.PriceForSale.ToString("C")
+                                        <span class="bg-black text-white top-1 start-100 translate-middle-y badge rounded-start ">Знижка</span>
+                                    </span>
+                                </h6>
+                            }
+                            else
+                            {
+                                <h6 class="text-dark text-opacity-50  pb-1 ">
+                                    
+                                    <span class="text-decoration" style="font-size:18px">
+                                        @Model.Product.Price.ToString("C")
+                                    </span>
+                                </h6>
+                            }
+                        </div>
+                        <div class="row pl-2 my-3">
+                            <p class="text-secondary lh-sm">@Html.Raw(Model.Product.Description)</p>
+                        </div>
+                        <div class="row pl-2 mb-3">
+                            <div class="col-md-4">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text bg-secondary text-white border-0 fw-semibold"
+                                          id="inputGroup-sizing-default">
+                                        Count
+                                    </span>
+                                    <input type="number" asp-for="Count" class="form-control text-end"
+                                           aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                           min="1" />
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-md-6 pb-1">
+                                <button type="submit"
+                                        class="btn btn-secondary w-100 py-2 text-uppercase fw-semibold">
+                                    Додати до кошика
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+

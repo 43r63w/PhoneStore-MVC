@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Product>
+
+<div class="row container-fluid pb-3">
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-3 col-sm-4 ">
+            <div class="row p-2">
+                <div class="col-12 p-1 ">
+                    <div class="card border-0 p-3 shadow  border-top border-5 rounded">
+                        @if (product.ProductImages != null && product.ProductImages.Count() > 0)
+                        {
+                          @*   <span class="badge bg-danger rounded-pill w-25">Знижка</span> *@
+                            <h2 class="text-center"><img src="@product.ProductImages.FirstOrDefault().ImageUrl" class="card-img-top rounded" asp-action="Details" asp-route-productId="@product.Id" style="width:100%" /></h2>
+                        }
+                        else
+                        {
+                            <h2 class="text-center"><img src="@product.ProductImages.FirstOrDefault().ImageUrl" asp-action="Details" asp-route-productId="@product.Id" class="card-img-top rounded " style="width:100%" /></h2>
+                        }
+                        <div class="card-body pb-0">
+                            <div class="pl-1">
+                                <p class="card-title h5 text-dark opacity-75 text-uppercase text-center">@product.Name</p>
+                                <p class="card-title text-warning text-center"> <b>@product.Model</b></p>
+                            </div>
+                            <div class="pl-1">
+                                <p class="text-dark text-opacity-75 text-center mb-1">
+                                  
+                                    <span class="">
+                                        <h6 class="text-center">@product.Price.ToString("c")</h6>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-6 col-sm-4 col-lg-6 ">
+                            <div class="w-50 btn-group " role="group">
+                                <a asp-action="AddToWish" asp-route-productId="@product.Id" class="btn btn-outline-secondary  ">
+                                    <i class="bi bi-heart"></i>
+                                </a>
+                                <a asp-action="Details" asp-route-productId="@product.Id" class="btn btn-primary px-5 ">
+                                    Детальніше
+                                </a> &nbsp;
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

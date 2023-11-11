@@ -1,0 +1,66 @@
+html {
+	font-size: 14px;
+}
+
+@media (min-width: 768px) {
+	html {
+		font-size: 16px;
+	}
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+	box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+	position: relative;
+	min-height: 100%;
+}
+
+body {
+	margin-bottom: 60px;
+}
+
+.navbar .navbar-brand img {
+	max-width: 75px;
+}
+
+.navbar {
+	box-shadow: rgb(0,0,1);
+}
+
+@media screen and (min-width:768px) {
+	.navbar {
+		letter-spacing: .1em;
+	}
+
+		.navbar.navbar-brand img {
+			max-width: 7em;
+		}
+
+		.navbar .navbar-nav .nav-link {
+			color: black;
+		}
+
+		.navbar .navbar-collapse {
+			display: flex;
+			flex-direction: column-reverse;
+			align-items: flex-end;
+		}
+
+	.search-and-icons {
+		display: flex;
+		align-items: center;
+	}
+}
+
+
+.search-and-icons .user-icons div {
+	padding-right: 1em;
+}
+
+.contact-info p {
+	font-size: .9em;
+	padding-right: 1em;
+	color: grey
+}
