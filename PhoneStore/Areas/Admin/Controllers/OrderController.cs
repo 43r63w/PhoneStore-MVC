@@ -17,6 +17,9 @@ namespace PhoneStore.Areas.Admin.Controllers
     {
         private readonly IUnitOfWork _unitOfWork;
 
+        [BindProperty]
+        public OrderVM OrderVM { get; set; }
+
 
         public OrderController(IUnitOfWork unitOfWork)
         {
@@ -32,13 +35,66 @@ namespace PhoneStore.Areas.Admin.Controllers
         {
             OrderVM orderVM = new()
             {
-                OrderHeader = await _unitOfWork.OrderHeader.GetAsync(u => u.Id == orderHeaderId,IncludeProperties:"ApplicationUser"),
-                OrderDetails  = await _unitOfWork.OrderDetail.GetAllAsync(u=>u.OrderHeaderId==orderHeaderId,IncludedProperties:"Product"),
+                OrderHeader = await _unitOfWork.OrderHeader.GetAsync(u => u.Id == orderHeaderId, IncludeProperties: "ApplicationUser"),
+                OrderDetails = await _unitOfWork.OrderDetail.GetAllAsync(u => u.OrderHeaderId == orderHeaderId, IncludedProperties: "Product"),
             };
-
-            return View(orderVM);   
-
+            return View(orderVM);
         }
+
+
+
+
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateDetails()
+        {
+            var claim = (ClaimsIdentity)User.Identity;
+            var userId = claim.FindFirst(ClaimTypes.NameIdentifier).Value;
+
+            var orderFromDb = await _unitOfWork.OrderHeader.GetAsync(u => u.Id == OrderVM.OrderHeader.Id);
+
+            orderFromDb.Name = OrderVM.OrderHeader.Name;
+            orderFromDb.StreetAdress = OrderVM.OrderHeader.StreetAdress;
+            orderFromDb.City = OrderVM.OrderHeader.City;
+            orderFromDb.PostalCode = OrderVM.OrderHeader.PostalCode;
+
+            _unitOfWork.OrderHeader.Update(orderFromDb);
+            _unitOfWork.Save();
+            TempData["success"] = "Інформація про користувача оновленна";
+
+            return RedirectToAction(nameof(Details), new { orderHeaderId = orderFromDb.Id });
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         #region APICALLS
         public async Task<IActionResult> GetAll()
