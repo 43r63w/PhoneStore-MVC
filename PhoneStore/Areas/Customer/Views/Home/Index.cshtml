@@ -1,5 +1,74 @@
 ﻿@model IEnumerable<Product>
 
+
+@{
+    var category = Context.Request.Query["category"];
+    var smartPhone = "text-primary";
+    var test = "text-primary";
+    var all = "text-primary";
+
+
+
+    switch (category)
+    {
+        case "smartPhone":
+            smartPhone = "bg-primary active text-white";
+            break;
+        case "":
+            test = "bg-primary active text-white";
+            break;
+        default:
+            all = "active bg-primary text-white";
+            break;
+    }
+
+
+}
+
+
+
+<div class="d-flex justify-content-between pb-1 pt-0">
+    <span></span>
+    <ul class="list-group list-group-horizontal-sm">
+        <a style="text-decoration:none;" asp-controller="Home" asp-action="Index" asp-route-category="smartPhone">
+        <li class="list-group-item @smartPhone ">Смартфони</li>
+        </a>
+        <a style="text-decoration:none;" asp-controller="Home" asp-action="Index" asp-route-category="test">
+        <li class="list-group-item @test" >Бігові</li>
+        </a>
+        <a style="text-decoration:none;" asp-controller="Home" asp-action="Index" asp-route-category="forAsphalt">
+        <li class="list-group-item ">Для асфальтного покриття</li>
+        </a>
+        <a style="text-decoration:none;" asp-controller="Home" asp-action="Index" asp-route-category="sportStyle">
+        <li class="list-group-item">Спортивний стиль</li>
+        </a>
+        <a style="text-decoration:none;" asp-controller="Home" asp-action="Index" asp-route-category="all">
+        <li class="list-group-item  @all">Усі</li>
+        </a>
+    </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="row container-fluid pb-3">
     @foreach (var product in Model)
     {

@@ -43,11 +43,21 @@ namespace PhoneStore.Areas.Customer.Controllers
                 HttpContext.Session.SetInt32(SD.WishlistSessionId, _unitOfWork.Wishlist.GetAll(u => u.ApplicationUserId == userId.Value).Count());
             }
 
+            IEnumerable<Product> productsList = _unitOfWork.Product.GetAll(IncludedProperties:"ProductImages");
 
 
-            IEnumerable<Product> productsList = _unitOfWork.Product.GetAll();
+            switch (category)
+            {
+                case "smartPhone":
+                    productsList = productsList.Where(u => u.CategoryId == 1);
+                break;
+                case "test":
+                    productsList = productsList.Where(u => u.CategoryId == 2);
+                    break;
+                default:             
+                break;
+            }
 
-            IEnumerable<ProductImage> products = _unitOfWork.ProductImage.GetAll();
 
             return View(productsList);
         }

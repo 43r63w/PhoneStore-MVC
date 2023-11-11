@@ -86,6 +86,7 @@ namespace PhoneStore.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            TempData["warning"] = "Спочатку увійдіть в аккаунт";
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);
