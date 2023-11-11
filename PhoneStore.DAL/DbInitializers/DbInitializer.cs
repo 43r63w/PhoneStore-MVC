@@ -76,7 +76,7 @@ namespace PhoneStore.DAL.DbInitializers
                     var user = _dbContext.ApplicationUsers.FirstOrDefault(u => u.Email == "user@gmail.com");
 
                     _userManager.AddToRoleAsync(admin, SD.Role_Admin).GetAwaiter().GetResult();
-                    _userManager.AddToRoleAsync(user, SD.Role_Admin).GetAwaiter().GetResult();
+                    _userManager.AddToRoleAsync(user, SD.Role_Customer).GetAwaiter().GetResult();
 
                 }
 
