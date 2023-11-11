@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Razor.Language.Intermediate;
 using PhoneStore.DAL.Repository.IRepository;
 using PhoneStore.Entities;
+using PhoneStore.Entities.ViewModels;
 using PhoneStore.Services;
 using SQLitePCL;
 using Stripe.Tax;
@@ -27,25 +28,33 @@ namespace PhoneStore.Areas.Admin.Controllers
             return View();
         }
 
+        public async Task<IActionResult> Details(int orderHeaderId)
+        {
+            OrderVM orderVM = new()
+            {
+                OrderHeader = await _unitOfWork.OrderHeader.GetAsync(u => u.Id == orderHeaderId,IncludeProperties:"ApplicationUser"),
+                OrderDetails  = await _unitOfWork.OrderDetail.GetAllAsync(u=>u.OrderHeaderId==orderHeaderId,IncludedProperties:"Product"),
+            };
+
+            return View(orderVM);   
+
+        }
+
         #region APICALLS
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
             var claim = (ClaimsIdentity)User.Identity;
             var userId = claim.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            List<OrderHeader> orderHeadersLists;
-
-
-            _unitOfWork.ApplicationUser.GetAsync(u => u.Id == userId);
+            IEnumerable<OrderHeader> orderHeadersLists;
 
             if (User.IsInRole(SD.Role_Admin))
             {
-                orderHeadersLists = _unitOfWork.OrderHeader.GetAll().ToList();
+                orderHeadersLists = _unitOfWork.OrderHeader.GetAll(IncludedProperties: "ApplicationUser");
             }
             else
             {
-                orderHeadersLists = _unitOfWork.OrderHeader.GetAll(u => u.ApplicationUserId == userId, IncludedProperties: "Product").ToList();
-
+                orderHeadersLists = await _unitOfWork.OrderHeader.GetAllAsync(u => u.ApplicationUserId == userId);
             }
 
             return Json(new { data = orderHeadersLists });

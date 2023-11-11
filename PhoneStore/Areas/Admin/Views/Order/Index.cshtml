@@ -1,5 +1,5 @@
 ﻿<div class="card shadow border-0 my-5 m-5 pb-5">
-    <div class="card-header bg-black  ml-0 py-3">
+    <div class="card-header bg-secondary ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
                 <h2 class="text-white py-2">Список товарів</h2>
@@ -21,14 +21,17 @@
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Назва </th>
-                    <th>Модель</th>
-                    <th>Ціна</th>
+                    <th>Пошта  </th>
+                    <th>Статус замовлення</th>
+                    <th>Статус оплати</th>
                     <th></th>
-                     <th></th>
                 </tr>
             </thead>
         </table>
 
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/js/order.js"></script>
+}
