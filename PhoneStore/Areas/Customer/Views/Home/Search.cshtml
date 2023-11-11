@@ -9,10 +9,7 @@
                     <div class="card border-0 p-3 shadow  border-top border-5 rounded">
                         @if (product.ProductImages != null && product.ProductImages.Count() > 0)
                         {
-                            @if (product.IsSale == true)
-                            {
-                                <span class="badge bg-danger rounded-pill w-25">Знижка</span>
-                            }
+                            @*   <span class="badge bg-danger rounded-pill w-25">Знижка</span> *@
                             <h2 class="text-center"><img src="@product.ProductImages.FirstOrDefault().ImageUrl" class="card-img-top rounded" asp-action="Details" asp-route-productId="@product.Id" style="width:100%" /></h2>
                         }
                         else
@@ -26,18 +23,10 @@
                             </div>
                             <div class="pl-1">
                                 <p class="text-dark text-opacity-75 text-center mb-1">
-                                    @if (product.IsSale)
-                                    {
-                                        <span class="">
-                                            <h6 class="text-center">@product.PriceForSale ₴ </h6>
-                                        </span>
-                                    }
-                                    else
-                                    {
-                                        <span class="">
-                                            <h6 class="text-center">@product.Price ₴ </h6>
-                                        </span>
-                                    }
+
+                                    <span class="">
+                                        <h6 class="text-center">@product.Price </h6>
+                                    </span>
                                 </p>
                             </div>
                         </div>

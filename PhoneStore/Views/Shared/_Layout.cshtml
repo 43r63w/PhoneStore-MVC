@@ -59,7 +59,7 @@
                     <div class="search-and-icons">
                         <form class="d-flex mb-2 me-3" role="search">
                             <input class="form-control me-2" name="search" type="search" aria-label="Search">
-                            <button class="btn btn-outline-success" type="submit">Пошук</button>
+                            <button class="btn btn-outline-success" asp-action="Search" type="submit">Пошук</button>
                         </form>
                         <div class="user-icons d-flex mb-2">
                             @if (User.Identity.IsAuthenticated)

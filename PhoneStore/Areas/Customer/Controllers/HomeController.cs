@@ -18,29 +18,32 @@ namespace PhoneStore.Areas.Customer.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IUnitOfWork _unitOfWork;
 
-
-
         public HomeController(ILogger<HomeController> logger, IUnitOfWork unitOfWork)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
         }
+
         public IActionResult Search(string search)
         {
             List<Product> products = _unitOfWork.Product.Search(search);
-            return View(products);         
+
+            IEnumerable<ProductImage> productImages = _unitOfWork.ProductImage.GetAll();
+            return View(products);
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string category)
         {
             var claim = (ClaimsIdentity)User.Identity;
             var userId = claim.FindFirst(ClaimTypes.NameIdentifier);
 
             if (userId != null)
             {
-                HttpContext.Session.SetInt32(SD.ShoppingCartSessionId, _unitOfWork.ShoppingCart.GetAll(u=>u.ApplicationUserId==userId.Value).Count());
+                HttpContext.Session.SetInt32(SD.ShoppingCartSessionId, _unitOfWork.ShoppingCart.GetAll(u => u.ApplicationUserId == userId.Value).Count());
                 HttpContext.Session.SetInt32(SD.WishlistSessionId, _unitOfWork.Wishlist.GetAll(u => u.ApplicationUserId == userId.Value).Count());
             }
+
+
 
             IEnumerable<Product> productsList = _unitOfWork.Product.GetAll();
 
